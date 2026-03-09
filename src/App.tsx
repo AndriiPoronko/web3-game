@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import HeroCard from "./components/HeroCard";
+import type { Hero } from "./types/hero";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const myMainCharacter: Hero = {
+    name: "noName",
+    level: 1,
+    profession: "humanFighter",
+    healthPoints: 100,
+    healthPointsMax: 120,
+    manaPoints: 44,
+    manaPointsMax: 100,
+  };
+  console.log(myMainCharacter);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-dvh w-full bg-slate-950 flex justify-center overflow-x-hidden">
+      <div className="w-full max-w-[420px] min-h-dvh bg-slate-900 border-x border-slate-800 flex flex-col p-4 shadow-2xl">
+        <HeroCard characterData={myMainCharacter} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
