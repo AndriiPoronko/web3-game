@@ -1,3 +1,4 @@
+import type { Item } from "./item";
 export type Hero = {
   name: string;
   level: number;
@@ -6,4 +7,5 @@ export type Hero = {
   healthPoints: number;
   manaPointsMax: number;
   manaPoints: number;
+  inventory: Item[];
 };
