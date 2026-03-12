@@ -40,10 +40,20 @@ function App() {
 
   const [heroData, setHeroData] = useState<Hero>(myMainCharacter);
 
+  const handleUsePotion = () => {
+    setHeroData({
+      ...heroData,
+      healthPoints: Math.min(
+        heroData.healthPoints + 20,
+        heroData.healthPointsMax,
+      ),
+    });
+  };
+
   return (
     <div className="min-h-dvh w-full bg-slate-950 flex justify-center overflow-x-hidden">
       <div className="w-full max-w-105 min-h-dvh bg-slate-900 border-x border-slate-800 flex flex-col p-4 shadow-2xl">
-        <HeroCard characterData={heroData} />
+        <HeroCard characterData={heroData} onUsePotion={handleUsePotion} />
         <button
           onClick={() => {
             setHeroData({

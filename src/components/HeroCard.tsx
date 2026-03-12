@@ -2,9 +2,10 @@ import type { Hero } from "../types/hero";
 
 type HeroCardProps = {
   characterData: Hero;
+  onUsePotion: () => void;
 };
 
-function HeroCard({ characterData }: HeroCardProps) {
+function HeroCard({ characterData, onUsePotion }: HeroCardProps) {
   return (
     <div>
       <h2>name: {characterData.name}</h2>
@@ -37,6 +38,35 @@ function HeroCard({ characterData }: HeroCardProps) {
           <span className="text-white text-sm font-bold drop-shadow-md">
             Mana: {characterData.manaPoints} / {characterData.manaPointsMax}
           </span>
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <h3 className="text-white font-bold mb-2">Inventory</h3>
+
+        {/* Контейнер-сітка: 5 колонок, відступи */}
+        <div className="grid grid-cols-6 gap-2 bg-slate-900 p-3 rounded-lg border border-slate-700">
+          {/* Створюємо штучний цикл на 20 слотів (5x4) */}
+          {Array.from({ length: 24 }).map((_, index) => {
+            // Перевіряємо, чи є в нас реальний предмет для цього слоту
+            const item = characterData.inventory[index];
+
+            return (
+              // Сам слот (ячейка)
+              <div
+                key={index}
+                onClick={onUsePotion}
+                className="w-12 h-12 bg-slate-800 border border-slate-600 rounded flex items-center justify-center hover:bg-slate-700 cursor-pointer"
+              >
+                {/* Якщо предмет існує - показуємо його іконку, якщо ні - нічого (null) */}
+                {item ? (
+                  <span className="text-2xl" title={item.name}>
+                    {item.icon}
+                  </span>
+                ) : null}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
