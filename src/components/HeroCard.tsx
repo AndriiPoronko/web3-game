@@ -1,11 +1,12 @@
 import type { Hero } from "../types/hero";
+import type { Item } from "../types/item";
 
 type HeroCardProps = {
   characterData: Hero;
-  onUsePotion: () => void;
+  onItemClick: (item: Item) => void;
 };
 
-function HeroCard({ characterData, onUsePotion }: HeroCardProps) {
+function HeroCard({ characterData, onItemClick }: HeroCardProps) {
   return (
     <div>
       <h2>name: {characterData.name}</h2>
@@ -55,7 +56,11 @@ function HeroCard({ characterData, onUsePotion }: HeroCardProps) {
               // Сам слот (ячейка)
               <div
                 key={index}
-                onClick={onUsePotion}
+                onClick={() => {
+                  if (item) {
+                    onItemClick(item);
+                  }
+                }}
                 className="w-12 h-12 bg-slate-800 border border-slate-600 rounded flex items-center justify-center hover:bg-slate-700 cursor-pointer"
               >
                 {/* Якщо предмет існує - показуємо його іконку, якщо ні - нічого (null) */}

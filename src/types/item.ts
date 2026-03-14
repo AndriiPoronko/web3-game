@@ -12,7 +12,6 @@ export type Weapon = BaseItem & {
 
 export type Consumable = BaseItem & {
   healAmount: number;
-  healTime: number;
 };
 
 export type Resource = BaseItem & {

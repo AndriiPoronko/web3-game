@@ -1,6 +1,8 @@
 import { useState } from "react";
 import HeroCard from "./components/HeroCard";
 import type { Hero } from "./types/hero";
+import type { Item } from "./types/item";
+import ItemHandlers from "./gameLogic/itemHandlers";
 
 function App() {
   const myMainCharacter: Hero = {
@@ -25,8 +27,7 @@ function App() {
         name: "Lesser Healing Potion",
         icon: "🧪",
         category: "potion",
-        healAmount: 10,
-        healTime: 10,
+        healAmount: 20,
       },
       {
         id: 3,
@@ -40,20 +41,20 @@ function App() {
 
   const [heroData, setHeroData] = useState<Hero>(myMainCharacter);
 
-  const handleUsePotion = () => {
-    setHeroData({
-      ...heroData,
-      healthPoints: Math.min(
-        heroData.healthPoints + 20,
-        heroData.healthPointsMax,
-      ),
-    });
+  const handleItemClick = (clickedItem: Item) => {
+    const handlerFunction = ItemHandlers[clickedItem.category];
+    if (handlerFunction) {
+      const updateHero = handlerFunction(heroData, clickedItem);
+      setHeroData(updateHero);
+    } else {
+      console.warn(`Немає обробника для категорії ${clickedItem.category}`);
+    }
   };
 
   return (
     <div className="min-h-dvh w-full bg-slate-950 flex justify-center overflow-x-hidden">
       <div className="w-full max-w-105 min-h-dvh bg-slate-900 border-x border-slate-800 flex flex-col p-4 shadow-2xl">
-        <HeroCard characterData={heroData} onUsePotion={handleUsePotion} />
+        <HeroCard characterData={heroData} onItemClick={handleItemClick} />
         <button
           onClick={() => {
             setHeroData({
